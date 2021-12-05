@@ -27,6 +27,9 @@ const writeFile = async (id) => {
   const data = JSON.parse( await fs.readFile('./config.json'));
   
   const indexData = data.findIndex((e) => e.id === id);
+
+  if (data[indexData].currentValue === 100) return "Lance máximo atingido";
+  
   data[indexData].currentValue += 5;
 
   fs.writeFile('./config.json', JSON.stringify(data), function (err) {
@@ -54,7 +57,7 @@ io.on('connection', (socket)=> {
     console.log(`${bidder} aumentou o lance no produto ${name}`);
     await writeFile(id);
     const data = await getProduct(id);
-    io.emit("refreshValue", data);
+    io.emit("refreshValue", data, bidder);
   });
 })
 

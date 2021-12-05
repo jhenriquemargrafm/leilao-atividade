@@ -32,7 +32,7 @@ export const Leilao = () => {
           <div>Leilão de Centavos</div>
           { products.map(({ id, productName, image, currentValue }, index) => (
             < Product
-              key={id}
+              key={index}
               index={index}
               id={id}
               name={productName}
